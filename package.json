@@ -1,23 +1,157 @@
 {
-  "name": "devdock",
-  "displayName": "DevDock",
+  "name": "calumsudo-devdock",
+  "displayName": "DevDock - Development Services Hub",
   "description": "A VS Code extension that provides a centralized hub for accessing and managing your development services directly from your editor. It eliminates the hassle of constantly switching between browser tabs and remembering port numbers by bringing all your microservices, databases, documentation, and development tools into one convenient sidebar.",
   "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.98.0"
+  "publisher": "calumsudo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/calumsudo/DevDock"
   },
+  "engines": {
+    "vscode": "^1.97.2"
+  },
+  "icon": "icon.png",
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:devdock.openInWebView"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "devdock-sidebar",
+          "title": "DevDock",
+          "icon": "resources/services-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "devdock-sidebar": [
+        {
+          "id": "devServices",
+          "name": "Dev Services"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "devdock.helloWorld",
-        "title": "Hello World"
+        "command": "devdock.openService",
+        "title": "Open Service"
+      },
+      {
+        "command": "devdock.refresh",
+        "title": "Refresh Services"
+      },
+      {
+        "command": "devdock.addService",
+        "title": "Add Service",
+        "icon": "$(add)"
+      },
+      {
+        "command": "devdock.editService",
+        "title": "Edit Service",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "devdock.removeService",
+        "title": "Remove Service",
+        "icon": "$(trash)"
       }
-    ]
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "devdock.addService",
+          "when": "view == devServices",
+          "group": "navigation"
+        },
+        {
+          "command": "devdock.refresh",
+          "when": "view == devServices",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "devdock.editService",
+          "when": "view == devServices && viewItem == service",
+          "group": "inline"
+        },
+        {
+          "command": "devdock.removeService",
+          "when": "view == devServices && viewItem == service",
+          "group": "inline"
+        },
+        {
+          "command": "devdock.openService",
+          "when": "view == devServices && viewItem == service",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "DevDock",
+      "properties": {
+        "devdock.services": {
+          "type": "array",
+          "default": [
+            {
+              "label": "JWT.io",
+              "url": "https://jwt.io/",
+              "iconPath": {
+                "light": "resources/jwt-light.svg",
+                "dark": "resources/jwt-dark.svg"
+              },
+              "description": "JSON Web Token debugger and inspector"
+            }
+          ],
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "url",
+              "iconPath"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Display name of the service"
+              },
+              "url": {
+                "type": "string",
+                "description": "URL of the service"
+              },
+              "iconPath": {
+                "type": "object",
+                "required": [
+                  "light",
+                  "dark"
+                ],
+                "properties": {
+                  "light": {
+                    "type": "string",
+                    "description": "Path to the light theme icon"
+                  },
+                  "dark": {
+                    "type": "string",
+                    "description": "Path to the dark theme icon"
+                  }
+                }
+              },
+              "description": {
+                "type": "string",
+                "description": "Optional description of the service"
+              }
+            }
+          },
+          "description": "List of available dev services"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -34,16 +168,19 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.98.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
-    "eslint": "^9.21.0",
-    "esbuild": "^0.25.0",
-    "npm-run-all": "^4.1.5",
-    "typescript": "^5.7.3",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.21.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@types/vscode": "^1.98.0",
+    "vsce": "^2.15.0"
   }
 }

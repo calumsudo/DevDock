@@ -1,71 +1,121 @@
-# devdock README
+# DevDock
 
-This is the README for your extension "devdock". After writing up a brief description, we recommend including the following sections.
+DevDock is a VS Code extension that provides a centralized hub for accessing and managing your development services directly from your editor. It eliminates the hassle of constantly switching between browser tabs and remembering port numbers by bringing all your microservices, databases, documentation, and development tools into one convenient sidebar.
+
+![DevDock Screenshot](images/devdock-screenshot.png)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Service Sidebar**: Quick access to all your development services from the VS Code activity bar
+- **In-Editor Viewing**: Open services directly in VS Code using the built-in webview
+- **External Browser Support**: Option to open services in your external browser
+- **Easy Management**: Add, edit, and remove services with a few clicks
+- **Custom Icons**: Assign custom icons to your services for easy identification
+- **Persistent Configuration**: Your service configuration is saved and persists between VS Code sessions
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+You can install DevDock from the VS Code Marketplace:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+1. Open VS Code
+2. Go to Extensions (Ctrl+Shift+X)
+3. Search for "DevDock"
+4. Click Install
 
-## Requirements
+Alternatively, you can [download the VSIX file](https://github.com/calumsudo/DevDock/releases) and install it manually.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Usage
 
-## Extension Settings
+### Adding a Service
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+1. Click the DevDock icon in the activity bar
+2. Click the "+" button in the sidebar header
+3. Enter the service name, URL, and optional description
+4. Select an icon for your service
+5. Your service will appear in the sidebar
 
-For example:
+### Opening a Service
 
-This extension contributes the following settings:
+- Click on any service in the sidebar to open it in a VS Code webview
+- Right-click a service and select "Open Service" to open it in your external browser
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+### Managing Services
 
-## Known Issues
+- Edit a service by clicking the edit icon next to it in the sidebar
+- Remove a service by clicking the trash icon next to it in the sidebar
+- Refresh the service list by clicking the refresh icon in the sidebar header
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## Customization
 
-## Release Notes
+DevDock can be customized through VS Code settings:
 
-Users appreciate release notes as you update your extension.
+```json
+"devdock.services": [
+  {
+    "label": "JWT.io",
+    "url": "https://jwt.io/",
+    "iconPath": {
+      "light": "resources/jwt-light.svg",
+      "dark": "resources/jwt-dark.svg"
+    },
+    "description": "JSON Web Token debugger and inspector"
+  }
+]
+```
 
-### 1.0.0
+## Adding Custom Icons
 
-Initial release of ...
+To add custom icons for your services:
 
-### 1.0.1
+1. Create SVG icons for both light and dark themes
+2. Name them using the pattern `name-light.svg` and `name-dark.svg`
+3. Place them in the `resources` folder of the extension
+4. Restart VS Code or refresh the services view
 
-Fixed issue #.
+## Development
 
-### 1.1.0
+### Prerequisites
 
-Added features X, Y, and Z.
+- Node.js
+- npm
+- VS Code
+
+### Building
+
+```bash
+git clone https://github.com/calumsudo/DevDock.git
+cd DevDock
+npm install
+npm run compile
+```
+
+### Debugging
+
+Launch the extension in debug mode from VS Code:
+
+1. Open the project in VS Code
+2. Press F5 to start debugging
+3. A new VS Code window will open with the extension loaded
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- VS Code Extension API
+- VS Code WebView API
 
 ---
 
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Made by [calumsudo](https://github.com/calumsudo)
